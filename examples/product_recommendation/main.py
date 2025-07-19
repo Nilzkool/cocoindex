@@ -1,6 +1,6 @@
-"""
-This example shows how to extract relationships from Markdown documents and build a knowledge graph.
-"""
+'''
+This example shows how to extract product information from JSON files and build a knowledge graph for product recommendation.
+'''
 
 import dataclasses
 import datetime
@@ -80,7 +80,6 @@ class ProductTaxonomy:
 
     A product may have multiple taxonomies. Avoid large categories like "office supplies" or "electronics". Use specific ones, like "pen" or "printer".
     """
-
     name: str
 
 
@@ -91,7 +90,7 @@ class ProductTaxonomyInfo:
 
     Fields:
     - taxonomies: Taxonomies for the current product.
-    - complementary_taxonomies: Think about when customers buy this product, what else they might need as complementary products. Put labels for these complentary products.
+    - complementary_taxonomies: Think about when customers buy this product, what else they might need as complementary products. Put labels for these complementary products.
     """
 
     taxonomies: list[ProductTaxonomy]
@@ -100,7 +99,7 @@ class ProductTaxonomyInfo:
 
 @cocoindex.op.function(behavior_version=2)
 def extract_product_info(product: cocoindex.Json, filename: str) -> ProductInfo:
-    # Print  markdown for LLM to extract the taxonomy and complimentary taxonomy
+    # Print markdown for LLM to extract the taxonomy and complementary taxonomy
     return ProductInfo(
         id=f"{filename.removesuffix('.json')}",
         title=product["title"],
@@ -114,7 +113,7 @@ def store_product_flow(
     flow_builder: cocoindex.FlowBuilder, data_scope: cocoindex.DataScope
 ) -> None:
     """
-    Define an example flow that extracts triples from files and build knowledge graph.
+    Define an example flow that extracts product information and constructs a knowledge graph for product recommendation.
     """
     data_scope["products"] = flow_builder.add_source(
         cocoindex.sources.LocalFile(path="products", included_patterns=["*.json"]),
