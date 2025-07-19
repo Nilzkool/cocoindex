@@ -99,28 +99,20 @@ Return: *Vector[Float32, N]*, where *N* is determined by the model
 
 ## ExtractByLlm
 
-`ExtractByLlm` extracts structured information from a text using specified LLM. The spec takes the following fields:
+`ExtractByLlm` extracts structured information from an input using a specified LLM. The spec takes the following fields:
 
 *   `llm_spec` (`cocoindex.LlmSpec`): The specification of the LLM to use. See [LLM Spec](/docs/ai/llm#llm-spec) for more details.
-*   `output_type` (`type`): The type of the output. e.g. a dataclass type name. See [Data Types](/docs/core/data_types) for all supported data types. The LLM will output values that match the schema of the type.
+*   `output_type` (`type`): The type of the output. e.g. a dataclass type name. See [Data Types](/docs/core/data_types) for all supported data types.
 *   `instruction` (`str`, optional): Additional instruction for the LLM.
-
-:::tip Clear type definitions
-
-Definitions of the `output_type` is fed into LLM as guidance to generate the output.
-To improve the quality of the extracted information, giving clear definitions for your dataclasses is especially important, e.g.
-
-*   Provide readable field names for your dataclasses.
-*   Provide reasonable docstrings for your dataclasses.
-*   For any optional fields, clearly annotate that they are optional, by `SomeType | None` or `typing.Optional[SomeType]`.
-
-:::
 
 Input data:
 
-*   `text` (*Str*): The text to extract information from.
+*   `text` (*Str*, optional): The text to extract information from.
+*   `image` (*Bytes*, optional): The image data to extract information from.
 
-Return: As specified by the `output_type` field in the spec. The extracted information from the input text.
+At least one of `text` or `image` must be provided.
+
+Return: As specified by the `output_type` field in the spec. The extracted information from the input.
 
 ## EmbedText
 
@@ -132,20 +124,10 @@ The spec takes the following fields:
 *   `model` (`str`): The name of the embedding model to use.
 *   `address` (`str`, optional): The address of the LLM API. If not specified, uses the default address for the API type.
 *   `output_dimension` (`int`, optional): The expected dimension of the output embedding vector. If not specified, use the default dimension of the model.
-
-    For most API types, the function internally keeps a registry for the default output dimension of known model.
-    You need to explicitly specify the `output_dimension` if you want to use a new model that is not in the registry yet.
-
 *   `task_type` (`str`, optional): The task type for embedding, used by some embedding models to optimize the embedding for specific use cases.
-
-:::note Supported APIs for Text Embedding
-
-Not all LLM APIs support text embedding. See the [LLM API Types table](/docs/ai/llm#llm-api-types) for which APIs support text embedding functionality.
-
-:::
 
 Input data:
 
 *   `text` (*Str*, required): The text to embed.
 
-Return: *Vector[Float32, N]*, where *N* is the dimension of the embedding vector determined by the model.
+Return: *Vector[Float32, N]*, where *N* is the dimension of the embedding vector determined by the model
