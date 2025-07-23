@@ -1,6 +1,6 @@
 This example builds an embedding index based on files stored in an Amazon S3 bucket.
 It continuously updates the index as files are added / updated / deleted in the source bucket:
-it keeps the index in sync with the Amazon S3 bucket effortlessly.
+ it keeps the index in sync with the Amazon S3 bucket effortlessly.
 
 ## Prerequisite
 
@@ -11,8 +11,8 @@ Before running the example, you need to:
 2.  Prepare for Amazon S3.
     See [Setup for AWS S3](https://cocoindex.io/docs/ops/sources#setup-for-amazon-s3) for more details.
 
-3.  Create a `.env` file with your Amazon S3 bucket name and (optionally) prefix.
-    Start from copying the `.env.example`, and then edit it to fill in your bucket name and prefix.
+3.  Create a `.env` file with your Postgres database URL and Amazon S3 bucket configuration.
+    Start from copying the `.env.example`, and then edit it to fill in your settings.
 
     ```bash
     cp .env.example .env
@@ -22,11 +22,14 @@ Before running the example, you need to:
     Example `.env` file:
     ```
     # Database Configuration
-    DATABASE_URL=postgresql://localhost:5432/cocoindex
+    COCOINDEX_DATABASE_URL=postgresql://localhost:5432/cocoindex
 
     # Amazon S3 Configuration
     AMAZON_S3_BUCKET_NAME=your-bucket-name
-    AMAZON_S3-SQS_QUEUE_URL=https://sqs.us-west-2.amazonaws.com/123456789/S3ChangeNotifications
+    # Optional
+    # AMAZON_S3_PREFIX=your/prefix/
+    # Optional
+    # AMAZON_S3_SQS_QUEUE_URL=https://sqs.us-west-2.amazonaws.com/123456789/S3ChangeNotifications
     ```
 
 ## Run
@@ -45,7 +48,6 @@ python main.py
 
 During running, it will keep observing changes in the Amazon S3 bucket and update the index automatically.
 At the same time, it accepts queries from the terminal, and performs search on top of the up-to-date index.
-
 
 ## CocoInsight
 CocoInsight is in Early Access now (Free) 😊 You found us! A quick 3 minute video tutorial about CocoInsight: [Watch on YouTube](https://youtu.be/ZnmyoHslBSc?si=pPLXWALztkA710r9).

@@ -12,12 +12,13 @@ def text_to_embedding(
     text: cocoindex.DataSlice[str],
 ) -> cocoindex.DataSlice[list[float]]:
     """
-    Embed the text using a SentenceTransformer model.
+    Embed the text using the LLM embedding client.
     This is a shared logic between indexing and querying, so extract it as a function.
     """
     return text.transform(
-        cocoindex.functions.SentenceTransformerEmbed(
-            model="sentence-transformers/all-MiniLM-L6-v2"
+        cocoindex.functions.EmbedText(
+            api_type=cocoindex.LlmApiType.OpenAi,
+            model="text-embedding-ada-002",
         )
     )
 
@@ -59,6 +60,7 @@ def text_embedding_flow(
         cocoindex.targets.Qdrant(collection_name=QDRANT_COLLECTION),
         primary_key_fields=["id"],
     )
+
 
 
 def _main() -> None:

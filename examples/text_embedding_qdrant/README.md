@@ -14,14 +14,14 @@ We appreciate a star ⭐ at [CocoIndex Github](https://github.com/cocoindex-io/c
 
 1. We will ingest a list of local files.
 2. For each file, perform chunking (recursively split) and then embedding.
-3. We will save the embeddings and the metadata in Postgres with PGVector.
+3. We will save the embeddings and the metadata in the Qdrant collection.
 
 ### Query
 We use Qdrant client to query the index, and reuse the embedding operation in the indexing flow.
 
 ## Pre-requisites
 
-- [Install Postgres](https://cocoindex.io/docs/getting_started/installation#-install-postgres) if you don't have one. Although the target store is Qdrant, CocoIndex uses Postgress to track the data lineage for incremental processing.
+- [Install Postgres](https://cocoindex.io/docs/getting_started/installation#-install-postgres) if you don't have one. Although the target store is Qdrant, CocoIndex uses Postgres to track the data lineage for incremental processing.
 
 - Run Qdrant.
 
@@ -36,7 +36,6 @@ We use Qdrant client to query the index, and reuse the embedding operation in th
    ```bash
    pip install -e .
    ```
-
 
 - Setup:
 

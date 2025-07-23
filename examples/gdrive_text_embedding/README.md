@@ -36,7 +36,7 @@ Before running the example, you need to:
     Starting from copying the `.env.example`, and then edit it to fill in your credential file path and folder IDs.
 
     ```bash
-    cp .env.exmaple .env
+    cp .env.example .env
     $EDITOR .env
     ```
 
@@ -62,7 +62,6 @@ Before running the example, you need to:
 
 During running, it will keep observing changes in the source folders and update the index automatically.
 At the same time, it accepts queries from the terminal, and performs search on top of the up-to-date index.
-
 
 ## CocoInsight
 I used CocoInsight (Free beta now) to troubleshoot the index generation and understand the data lineage of the pipeline.

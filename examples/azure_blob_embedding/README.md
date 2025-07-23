@@ -1,6 +1,6 @@
 This example builds an embedding index based on files stored in an Azure Blob Storage container.
 It continuously updates the index as files are added / updated / deleted in the source container:
-it keeps the index in sync with the Azure Blob Storage container effortlessly.
+ it keeps the index in sync with the Azure Blob Storage container effortlessly.
 
 ## Prerequisite
 
@@ -11,8 +11,8 @@ Before running the example, you need to:
 2.  Prepare for Azure Blob Storage.
     See [Setup for Azure Blob Storage](https://cocoindex.io/docs/ops/sources#setup-for-azure-blob-storage) for more details.
 
-3.  Create a `.env` file with your Azure Blob Storage container name and (optionally) prefix.
-    Start from copying the `.env.example`, and then edit it to fill in your bucket name and prefix.
+3.  Create a `.env` file with your settings.
+    Start from copying the `.env.example`, and then edit it to fill in your settings.
 
     ```bash
     cp .env.example .env
@@ -22,11 +22,13 @@ Before running the example, you need to:
     Example `.env` file:
     ```
     # Database Configuration
-    DATABASE_URL=postgresql://localhost:5432/cocoindex
+    COCOINDEX_DATABASE_URL=postgresql://localhost:5432/cocoindex
 
     # Azure Blob Storage Configuration
-    AZURE_BLOB_STORAGE_ACCOUNT_NAME=your-account-name
-    AZURE_BLOB_STORAGE_CONTAINER_NAME=your-container-name
+    AZURE_STORAGE_ACCOUNT_NAME=your-account-name
+    AZURE_BLOB_CONTAINER_NAME=your-container-name
+    # Optional
+    # AZURE_BLOB_PREFIX=your/prefix/
     ```
 
 ## Run
@@ -43,9 +45,8 @@ Run:
 python main.py
 ```
 
-During running, it will keep observing changes in the Amazon S3 bucket and update the index automatically.
+During running, it will keep observing changes in the Azure Blob Storage container and update the index automatically.
 At the same time, it accepts queries from the terminal, and performs search on top of the up-to-date index.
-
 
 ## CocoInsight
 CocoInsight is in Early Access now (Free) 😊 You found us! A quick 3 minute video tutorial about CocoInsight: [Watch on YouTube](https://youtu.be/ZnmyoHslBSc?si=pPLXWALztkA710r9).

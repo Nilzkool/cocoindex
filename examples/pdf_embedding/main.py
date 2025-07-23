@@ -42,12 +42,13 @@ def text_to_embedding(
     text: cocoindex.DataSlice[str],
 ) -> cocoindex.DataSlice[list[float]]:
     """
-    Embed the text using a SentenceTransformer model.
+    Embed the text using a LLM embedding model.
     This is a shared logic between indexing and querying, so extract it as a function.
     """
     return text.transform(
-        cocoindex.functions.SentenceTransformerEmbed(
-            model="sentence-transformers/all-MiniLM-L6-v2"
+        cocoindex.functions.EmbedText(
+            api_type=cocoindex.LlmApiType.OpenAI,
+            model="text-embedding-ada-002"
         )
     )
 
@@ -95,6 +96,7 @@ def pdf_embedding_flow(
             )
         ],
     )
+
 
 
 def search(pool: ConnectionPool, query: str, top_k: int = 5):
